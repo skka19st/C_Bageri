@@ -7,7 +7,7 @@
     model anger vilken klass eller viewModel som beskriver innehållet
     ViewBag har skapats och skickats med från inkommande vy
 -->
-@model HomeViewModel
+@model Product
 <!-- Rubrik                                                        -->
 <h2>@ViewBag.Rubrik</h2>
 
@@ -17,12 +17,3 @@
 -->
 <partial name="_Carousel" />
 
-<!--
-    tagHelper pekar till partial view _ProductDetailShared
-    _ProductDetailShared visar data för Product-klassen
-    Model med stor bokstav här
--->
-@foreach (var produkt in Model.Lista)
-{
-    <partial name="_ProductDetailShared" model="produkt" />
-}

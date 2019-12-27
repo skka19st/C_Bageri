@@ -26,7 +26,7 @@ namespace C_Bageri202.Controllers
         public ViewResult List()
         {
             // skickar med fliknamnet till webben
-            ViewBag.Title = "Bageri 2.0";
+            ViewBag.Title = "Product List 2.0";
 
             // rubrik till webbsidan
             ViewBag.Rubrik = "Produktlista";
@@ -45,7 +45,7 @@ namespace C_Bageri202.Controllers
         public IActionResult Detail(int id)
         {
             // skickar med fliknamnet till webben
-            ViewBag.Title = "Bageri 2.0";
+            ViewBag.Title = "Product Detail 2.0";
 
             // rubrik till webbsidan
             ViewBag.Rubrik = "Produktdetalj";

@@ -24,22 +24,25 @@ namespace C_Bageri202.Controllers
         }
 
         // action-metod Index returnerar till view Index
-        public IActionResult Index()
+        public IActionResult Index(int inId)
         {
             // skickar med fliknamnet till webben
-            ViewBag.Title = "Bageri 2.0";
+            ViewBag.Title = "Home Index 2.0";
 
             // rubrik till webbsidan
             ViewBag.Rubrik = "Välkommen till ditt bageri på nätet!";
 
-
-            // skapar en instans av klassen HostViewModel
-            // urval: alla pajer
-            HomeViewModel ProduktLista = new HomeViewModel();
-            ProduktLista.Lista = accessProdukt.AllProducts;
+            // för att säkerställa värdet på id
+            inId = 1;
+            Product product = accessProdukt.GetProductById(inId);
+            if (product == null)
+            {
+                // 404 - not found
+                return NotFound();
+            }
 
             // skickar data till vyn Index
-            return View(ProduktLista);
+            return View(product);
         }
     }
 }

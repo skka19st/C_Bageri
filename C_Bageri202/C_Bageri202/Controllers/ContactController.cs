@@ -28,7 +28,7 @@ namespace C_Bageri202.Controllers
         public IActionResult Detail(int inId)
         {
             // skickar med fliknamnet till webben
-            ViewBag.Title = "Bageri 2.0";
+            ViewBag.Title = "Contact Detail 2.0";
 
             // rubrik till webbsidan
             ViewBag.Rubrik = "Kontakta oss";
