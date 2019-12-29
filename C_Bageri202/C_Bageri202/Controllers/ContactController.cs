@@ -8,7 +8,7 @@ using C_Bageri202.ViewModels;
 
 namespace C_Bageri202.Controllers
 {
-    // koppling till Model-klass Contact
+    // kontaktinfo
     public class ContactController : Controller
     {
         // access till klass Contact via interfacet
