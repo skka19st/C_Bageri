@@ -9,19 +9,18 @@ using C_Bageri202.ViewModels;
 namespace C_Bageri202.Controllers
 {
     // hemsida/huvudsida
-    // visar produkt-info
     public class HomeController : Controller
     {
         // access till klass Product via interfacet
-        private readonly IProduct accessProdukt;
+        //private readonly IProduct accessProdukt;
 
         // constructor, indata är av typ interface 
         // accessProdukt = lokal variabel
         // inAccessProdukt = inkommande data
-        public HomeController(IProduct inAccessProdukt)
-        {
-            accessProdukt = inAccessProdukt;
-        }
+        //public HomeController(IProduct inAccessProdukt)
+        //{
+        //    accessProdukt = inAccessProdukt;
+        //}
 
         // action-metod Index returnerar till view Index
         public IActionResult Index(int inId)
@@ -32,17 +31,8 @@ namespace C_Bageri202.Controllers
             // rubrik till webbsidan
             ViewBag.Rubrik = "Välkommen till ditt bageri på nätet!";
 
-            // för att säkerställa värdet på id
-            inId = 1;
-            Product product = accessProdukt.GetProductById(inId);
-            if (product == null)
-            {
-                // 404 - not found
-                return NotFound();
-            }
-
-            // skickar data till vyn Index
-            return View(product);
+            // skickar rubrik till vyn Index
+            return View(ViewBag);
         }
     }
 }

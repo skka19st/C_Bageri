@@ -1,0 +1,29 @@
+﻿<!--
+    html-kod för ProduktLista-sidan
+    anropas från action-metoden List i Controller
+    skickas vidare till vyn SidBas och läggs in vid RenderBody()
+-->
+<!-- "at-symbol"  anger början på C#-kod                              -->
+<!-- ProduktListaViewModel är den vy som kommer in                    -->
+<!-- ViewBag har skapats och skickats med från inkommande vy          -->
+
+@model ProduktListaViewModel
+<!-- Rubrik                                                           -->
+<h1>@ViewBag.Rubrik</h1>
+
+<!-- loop genom listan för att skapa listrader                        -->
+<!-- Model med stor bokstav här                                       -->
+@foreach (var produkt in Model.Lista)
+{
+    <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3 class="pull-right">@produkt.Pris.ToString("c")</h3>
+                <h3>
+                    <a>@produkt.Namn</a>
+                </h3>
+                <p>Lagersaldo: @produkt.LagerSaldo.ToString()</p>
+            </div>
+        </div>
+    </div>
+}

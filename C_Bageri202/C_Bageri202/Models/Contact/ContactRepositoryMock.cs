@@ -8,6 +8,10 @@ namespace C_Bageri202.Models
     // kopplas ihop med interfacet för klassen Contact
     public class ContactRepositoryMock : IContact
     {
+        // interfacet till klassen Contact kopplas hit, dvs 
+        // klassen implementerar interface IContact
+        // tillfälligt testdata, används för att testa data utan databasanrop
+        // kallas att "mocka databasanrop" (simulera databasanrop)
         public Contact GetContactById(int inId)
         {
             return new Contact

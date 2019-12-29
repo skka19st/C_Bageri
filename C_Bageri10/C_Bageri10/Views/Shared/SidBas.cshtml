@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<!-- har ersatt _Layout.cshtml                                        -->
+<!-- html-kod som är lika för alla webbsidor                          -->
+<!-- sökvägar till bootstrap, jQuery, bilder och CSS                  -->
+<!-- dynamisk data under körning kommer via vy till RenderBody()      -->
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <link href="~/Content/site.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

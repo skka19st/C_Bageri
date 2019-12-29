@@ -8,7 +8,7 @@ using C_Bageri202.ViewModels;
 
 namespace C_Bageri202.Controllers
 {
-    // koppling till Model-klass Product
+    // produkt-lista / detaljsida för produkt
     public class ProductController : Controller
     {
         // access till klass Product via interfacet
@@ -33,7 +33,7 @@ namespace C_Bageri202.Controllers
             //ViewBag.Message = "Welcome to Pie shop";
 
             // skapar en instans av klassen ProductListViewModel
-            // urval: alla pajer
+            // urval: alla produkter
             ProductListViewModel ProduktLista = new ProductListViewModel();
             ProduktLista.Lista = accessProdukt.AllProducts;
 

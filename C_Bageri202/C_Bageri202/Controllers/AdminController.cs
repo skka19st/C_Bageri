@@ -34,7 +34,7 @@ namespace C_Bageri202.Controllers
             ViewBag.Rubrik = "Produktlista Uppdatering";
 
             // skapar en instans av klassen ProductListViewModel
-            // urval: alla pajer
+            // urval: alla produkter
             ProductListViewModel ProduktLista = new ProductListViewModel();
             ProduktLista.Lista = accessProdukt.AllProducts;
 
