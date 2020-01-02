@@ -1,0 +1,35 @@
+﻿<!--
+    Partial Content-view
+    anropas bara för inloggade användare
+    anropas från view ProductDetail
+    hämtar datamodell från ViewComponent CommentaryContent.cs
+
+    model Commentary = data skickas från formuläret i form av en Commentary
+    de properties i Commentary-klassen som återfinns här i formuläret
+    blir automatiskt hopkopplade när formuläret skickas (data-binding)
+-->
+
+@model Commentary
+
+<form asp-action="Checkout" method="post" class="form-horizontal" role="form">
+    <h4>Kommentar</h4>
+
+    <!-- tagHelper för felmeddelande, gäller hela vyn                   -->
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <!-- kommentar - input-fält                                             -->
+    <div class="form-group">
+        <label asp-for="Text" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <!-- asp-for = TagHelper, pekar mot properties i klass Order -->
+            <input asp-for="Text" class="form-control" />
+        </div>
+    </div>
+
+    <!-- submit av ifyllt formulär                                           -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-5">
+            <input type="submit" class="btn btn-primary" value="Lägg till" />
+        </div>
+    </div>
+</form>
