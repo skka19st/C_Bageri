@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace C_Bager30.Models
+// Repository innehåller de mest grundläggande anropen mot databasen
+// ta bort, lägga till, hämta en specifik, hämta alla
+// tänk "grundstomme"
+namespace C_Bageri30.Models
 {
     public class ContactRepository : IContact
     {
