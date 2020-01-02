@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using C_Bager30.Models;
-using C_Bager30.ViewModels;
+using C_Bageri30.Models;
+using C_Bageri30.ViewModels;
 
-namespace C_Bager30.Controllers
+namespace C_Bageri30.Controllers
 {
     // kontaktinfo
     public class ContactController : Controller

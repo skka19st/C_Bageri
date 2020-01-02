@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace C_Bager30.Migrations
+namespace C_Bageri30.Migrations
 {
     public partial class InitialMigration : Migration
     {

@@ -7,18 +7,32 @@
     model anger vilken klass eller viewModel som beskriver innehållet
     ViewBag har skapats och skickats med från inkommande vy
 -->
-@model Product
+@model ProductDetailViewModel
 
 <h2>@ViewBag.Rubrik</h2>
 
 <!-- Model med stor bokstav här                                   -->
-<div class="thumbnail">
-    <img src="~/Images/carousel3.jpg" alt="">
-    <div class="caption-full">
-        <h3>
-            <a href="#">@Model.Name</a>
-            <div class="pull-right">@Model.Price.ToString("c")</div>
-        </h3>
-        <h3>@Model.Besk</h3>
+<div class="col-sm-6 col-lg-6 col-md-6">
+    <div class="thumbnail">
+        <img src="~/Images/carousel3.jpg" alt="">
+        <div class="caption">
+            <h3>
+                <a href="#">@Model.ProductDetail.Name</a>
+                <div class="pull-right">@Model.ProductDetail.Price.ToString("c")</div>
+            </h3>
+            <h3>@Model.ProductDetail.Besk</h3>
+        </div>
     </div>
 </div>
+
+<!--
+    ev kommentarer visas
+-->
+@if (Model.CommentaryList.Count > 0)
+{
+    <h2>Så tycker våra kunder</h2>
+    @foreach (var commentary in Model.CommentaryList)
+    {
+        <partial name="_CommentaryShared" model="commentary" />
+    }
+}

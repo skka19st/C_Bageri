@@ -9,9 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using C_Bager30.Models;
+using C_Bageri30.Models;
 
-namespace C_Bager30
+namespace C_Bageri30
 {
     // konfigurerar applikationen inför körning
     public class Startup
@@ -46,6 +46,7 @@ namespace C_Bager30
             // interface, databaskoppling
             services.AddScoped<IProduct, ProductRepository>();
             services.AddScoped<IContact, ContactRepository>();
+            services.AddScoped<ICommentary, CommentaryRepository>();
 
             // RepositoryMock är testdata
             //services.AddScoped<IProduct, ProductRepositoryMock>();
@@ -99,4 +100,3 @@ namespace C_Bager30
         }
     }
 }
-

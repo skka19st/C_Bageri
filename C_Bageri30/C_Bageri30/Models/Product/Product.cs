@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace C_Bager30.Models
+namespace C_Bageri30.Models
 {
     public class Product
     {

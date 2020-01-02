@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using C_Bager30.Models;
-using C_Bager30.ViewModels;
+using C_Bageri30.Models;
+using C_Bageri30.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace C_Bager30.Controllers
+namespace C_Bageri30.Controllers
 {
     // admin-sida
     public class AdminController : Controller
@@ -36,7 +36,7 @@ namespace C_Bager30.Controllers
             // skapar en instans av klassen ProductListViewModel
             // urval: alla produkter
             ProductListViewModel ProduktLista = new ProductListViewModel();
-            ProduktLista.Lista = accessProdukt.AllProducts;
+            //ProduktLista.Lista = accessProdukt.AllProducts;
 
             // skickar data till vyn List
             return View(ProduktLista);

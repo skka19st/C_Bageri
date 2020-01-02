@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace C_Bager30.Models
+namespace C_Bageri30.Models
 {
     // databas (Entity Framework)
     // DbContext är ett mellanlager som konverterar egen kod (C#) till 
@@ -21,5 +21,6 @@ namespace C_Bager30.Models
         //  kopplar ihop egen kod med databasen genom instansvariabler
         public DbSet<Product> DbProduct { get; set; }
         public DbSet<Contact> DbContact { get; set; }
+        public DbSet<Commentary> DbCommentary { get; set; }
     }
 }
