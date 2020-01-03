@@ -11,10 +11,11 @@ namespace C_Bageri30.ViewModels
         public Product ProductDetail { get; set; }
 
         // behöver skapa <List> av kommentarerna för att kunna 
-        // testa på antalet kommentarer i html-koden
+        // kontrollera antalet kommentarer i html-koden
         public List<Commentary> CommentaryList { get; set; }
 
-        // genomsnittsbetyg beräknas innan det skickas till webben
-        public float GradeAverage { get; set; }
+        // genomsnittsbetyg beräknas och formatteras 
+        // innan det skickas till webben
+        public string GradeAverage { get; set; }
     }
 }

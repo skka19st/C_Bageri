@@ -7,6 +7,19 @@ namespace C_Bageri30.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "DbCommentary",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
+                    Text = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DbCommentary", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DbContact",
                 columns: table => new
                 {
@@ -22,6 +35,19 @@ namespace C_Bageri30.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DbContact", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DbGrades",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
+                    Grade = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DbGrades", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,7 +69,13 @@ namespace C_Bageri30.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "DbCommentary");
+
+            migrationBuilder.DropTable(
                 name: "DbContact");
+
+            migrationBuilder.DropTable(
+                name: "DbGrades");
 
             migrationBuilder.DropTable(
                 name: "DbProduct");
