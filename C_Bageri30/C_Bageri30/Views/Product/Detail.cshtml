@@ -7,6 +7,11 @@
     model anger vilken klass eller viewModel som beskriver innehållet
     ViewBag har skapats och skickats med från inkommande vy
 -->
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @model ProductDetailViewModel
 
 <h2>@ViewBag.Rubrik</h2>
@@ -39,23 +44,38 @@
     }
 
     <!--
-        inloggade användare kan lämna kommentar  ???
+        inloggade användare kan lämna kommentar
     -->
-    @if (Model.CommentaryList.Count > 0)
+    <!--
+
+        name = variabel som skickar data till controllern
+        asp-for = property den kopplas mot i classen alt
+        asp-validation-for = visar felmeddelande för enskilt fält
+        asp-validation-summary = visar fel för hela formuläret
+                    <input type="hidden" name="Id" value="att:Model.ProductDetail.Id" />
+                        <label asp-for="Text" class="col-md-2 control-label"></label>
+    -->
+    @if (SignInManager.IsSignedIn(User))
     {
-        <!-- <partial name="_CommentaryContent" model="Commentary" /> -->
         <form asp-action="Checkout" method="post" class="form-horizontal" role="form">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
             <h3>Din synpunkt</h3>
 
-            <!-- tagHelper för felmeddelande, gäller hela vyn                   -->
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <div class="col-md-5">
+                    <input name="Text" class="form-control" />
+                </div>
+            </div>
 
             <!-- submit av ifyllt formulär                                           -->
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-5">
-                    <input type="submit"
-                           asp-controller="Product" asp-action="Detail"
-                           asp-route-id="@Model.CommentaryList[0].Text"
+
+                    <input type="submit" name="Text"
+                           asp-controller="Product" asp-action="AddCommentary"
+                           asp-route-id="@Model.ProductDetail.Id"
+                           asp-route-text="Text"
                            class="btn btn-primary" value="Lägg till" />
                 </div>
             </div>

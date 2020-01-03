@@ -34,6 +34,10 @@
                     <li>
                         <a asp-controller="Contact" asp-action="Detail">Kontakt</a>
                     </li>
+
+                    <!-- länka in htmlkod för inloggning, från partial view _LoginPartial   -->
+                    <partial name="_LoginPartial" />
+
                     <li>
                         <a asp-controller="Admin" asp-action="List">Admin</a>
                     </li>
@@ -52,6 +56,7 @@
                 @RenderBody()
             </div>
         </div>
+        @RenderSection("Scripts", required: false)
     </div>
 </body>
 </html>

@@ -8,40 +8,40 @@ namespace C_Bageri30.Models
     // Repository innehåller de mest grundläggande anropen mot databasen
     // ta bort, lägga till, hämta en specifik, hämta alla
     // tänk "grundstomme"
-    public class CommentaryRepository : ICommentary
+    public class GradesRepository : IGrades
     {
-        // interfacet till klassen Commentary kopplas hit, dvs 
-        // klassen implementerar interface ICommentary
+        // interfacet till klassen Grades kopplas hit, dvs 
+        // klassen implementerar interface IGrades
 
         // databas-objekt 
         private readonly AppDatabase database;
 
         // constructor
-        public CommentaryRepository(AppDatabase appDbContext)
+        public GradesRepository(AppDatabase appDbContext)
         {
             database = appDbContext;
         }
 
         // hämta alla kommentarer
-        public IEnumerable<Commentary> GetCommentaryAll()
+        public IEnumerable<Grades> GetGradesAll()
         {
-            return database.DbCommentary;
+            return database.DbGrades;
         }
 
         // hämta alla kommentarer för angiven produkt
-        public IEnumerable<Commentary> GetCommentaryByProduct(int inProjektId)
+        public IEnumerable<Grades> GetGradesByProduct(int inProjektId)
         {
-            return database.DbCommentary.
+            return database.DbGrades.
                             Where(c => c.ProductId == inProjektId);
             //Where(c => c.ProductId == inProjektId).ToList();
         }
 
         // lägg till ny kommentar
-        public void AddCommentary(Commentary inCommentary)
+        public void AddGrades(Grades inGrades)
         {
-            database.DbCommentary.Add(inCommentary);
+            database.DbGrades.Add(inGrades);
             database.SaveChanges();
-
         }
     }
 }
+

@@ -11,6 +11,6 @@ namespace C_Bageri30.Models
     {
         IEnumerable<Commentary> GetCommentaryAll();
         IEnumerable<Commentary> GetCommentaryByProduct(int id);
-        void CreateCommentary(Commentary inCommentary);
+        void AddCommentary(Commentary inCommentary);
     }
 }

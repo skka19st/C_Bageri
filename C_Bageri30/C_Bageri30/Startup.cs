@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +41,9 @@ namespace C_Bageri30
                 options.UseSqlServer(Configuration.GetConnectionString
                     ("DefaultConnection")));
 
+            // funktion för identifiering
+            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDatabase>();
+
             // ska nås från alla ställen i applikationen
             // skapar ny instans för varje request, försvinner när 
             // "request" är färdigbehandlad
@@ -47,6 +51,7 @@ namespace C_Bageri30
             services.AddScoped<IProduct, ProductRepository>();
             services.AddScoped<IContact, ContactRepository>();
             services.AddScoped<ICommentary, CommentaryRepository>();
+            services.AddScoped<IGrades, GradesRepository>();
 
             // RepositoryMock är testdata
             //services.AddScoped<IProduct, ProductRepositoryMock>();
@@ -61,6 +66,13 @@ namespace C_Bageri30
 
             // registrera support för MVC
             services.AddControllersWithViews();
+
+            // för att använda sessions
+            //services.AddHttpContextAccessor();
+            //services.AddSession();
+
+            // behövs för identifieringsfunktion
+            services.AddRazorPages();
         }
 
         // S.k. middleware-komponenter
@@ -86,6 +98,12 @@ namespace C_Bageri30
             // request ska dirigeras till: controller + action-metod
             app.UseRouting();
 
+            // identifiering, inloggning
+            app.UseAuthentication();
+
+            // håller koll på olika behörighetsnivåer/typer
+            app.UseAuthorization();
+
             // Om ingen slutstation har begärts visas hemsidan
             app.UseEndpoints(endpoints =>
             {
@@ -93,6 +111,9 @@ namespace C_Bageri30
                     name: "default",
                     // 3:e parameter-namn samma som i action-metoden
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                // endpoint för identifieringsfunktioner
+                endpoints.MapRazorPages();
             });
 
             // info-medd för vanligt förekommande fel

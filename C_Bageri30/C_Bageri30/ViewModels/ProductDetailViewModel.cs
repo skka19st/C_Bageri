@@ -13,5 +13,8 @@ namespace C_Bageri30.ViewModels
         // behöver skapa <List> av kommentarerna för att kunna 
         // testa på antalet kommentarer i html-koden
         public List<Commentary> CommentaryList { get; set; }
+
+        // genomsnittsbetyg beräknas innan det skickas till webben
+        public float GradeAverage { get; set; }
     }
 }
