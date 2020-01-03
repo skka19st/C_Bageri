@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace C_Bageri30.Migrations
 {
     [DbContext(typeof(AppDatabase))]
-    [Migration("20200101202825_DataCommentaryAdded")]
-    partial class DataCommentaryAdded
+    [Migration("20200103184447_SeedDataAdded")]
+    partial class SeedDataAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,22 @@ namespace C_Bageri30.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DbContact");
+                });
+
+            modelBuilder.Entity("C_Bageri30.Models.Grades", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DbGrades");
                 });
 
             modelBuilder.Entity("C_Bageri30.Models.Product", b =>

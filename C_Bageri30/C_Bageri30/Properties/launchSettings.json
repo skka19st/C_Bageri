@@ -3,8 +3,8 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:64448",
-      "sslPort": 44338
+      "applicationUrl": "http://localhost:49854",
+      "sslPort": 44370
     }
   },
   "profiles": {

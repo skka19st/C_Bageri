@@ -73,50 +73,68 @@ namespace C_Bageri30.Controllers
 
             // information som ska till webbsidan:
             // info om vald produkt + produktens samtliga kommentarer
+            // även betygsgenomsnitt ska beräknas och skickas med
+
             // en <List> måste initieras (med new) innan den kan användas
             // även om den ska tilldelas värde med direkt
-            ProductDetailViewModel localProductView = new ProductDetailViewModel();
-            localProductView.CommentaryList = new List<Commentary>();
+            ProductDetailViewModel localProductViewModel = new ProductDetailViewModel();
+            localProductViewModel.CommentaryList = new List<Commentary>();
+
 
             // hämta önskad produkt
             Product produkt = accessProdukt.GetProductById(id);
-            localProductView.ProductDetail = produkt;
+            localProductViewModel.ProductDetail = produkt;
 
             // hämta kommentarer för produkten
             IEnumerable<Commentary> localCommentary;
             localCommentary = accessCommentary.GetCommentaryByProduct(id);
-            localProductView.CommentaryList = localCommentary.ToList();
+            localProductViewModel.CommentaryList = localCommentary.ToList();
 
-            // hämta beräkna genomsnitt för produktens betyg
+            // hämta produktens samtliga betyg
             IEnumerable<Grades> localGradesIENum;
             localGradesIENum = accessGrades.GetGradesByProduct(id);
 
-            localProductView.CommentaryList = localCommentary.ToList();
+            // betygen måste vara av typen List<int> för att beräknas
+            // en <List> måste initieras (med new) innan den kan användas
+            // även om den ska tilldelas värde med direkt
+            List<int> gradeList = new List<int>();
+            foreach(Grades rad in localGradesIENum)
+            {
+                gradeList.Add(rad.Grade);
+            }
+
+            // beräkna genomsnittet för betygen
+            // avrundat resultat omvandlas till string
+            if (gradeList.Count > 0)
+            {
+                double gradeNum = gradeList.Average();
+                localProductViewModel.GradeAverage = Math.Round(gradeNum).ToString();
+            } else
+            {
+                localProductViewModel.GradeAverage = "inget betyg angivet";
+            }
 
             // ???
             //List<int> test = new List<int>();
-            //test.Add(11);
+            //test.Add(18);
             //test.Add(20);
             //test.Add(30);
 
             //double svar = test.Average();
-            //string svarstring = svar.ToString();
-            //double svar2 = svar(rou)
+            //double svarAvrundat = Math.Round(svar);
+            //string svarstring = svarAvrundat.ToString();
+
 
             // skickar data till vyn Detail
-            return View(localProductView);
+            return View(localProductViewModel);
             //return ActionResult()
-
-            //return RedirectToAction("Index", "Home", "new ");
-            //return RedirectToAction("Index", "Home", new { id="1", Text="kommentar" });
-            //return View(localProductView);   //return RedirectToAction("Index","Home","1")  actionmetod/controller/fragment
         }
 
-        // action-metod AddCommentary returnerar vidare till 
+        // action-metod AddCommentaryController returnerar vidare till 
         // action-metod Detail
-        public RedirectToActionResult AddCommentary(int id, string text)
+        public RedirectToActionResult AddCommentaryController(int id, string text)
         {
-            // en kommentar ska läggas till
+            // en kommentar ska läggas till, behöver en mall
             Commentary localCommentar = new Commentary();
 
             // generera id till Commentary-klassen
@@ -129,9 +147,31 @@ namespace C_Bageri30.Controllers
             // lägg till ny kommentar i databasen
             accessCommentary.AddCommentary(localCommentar);
 
-            // action-metod AddCommentary returnerar vidare till 
+            // action-metod AddCommentaryController returnerar vidare till 
             // actionmetod 'Detail' i Controller 'Product' med värdet id
             return RedirectToAction("Detail","Product", new { id = id });
+        }
+
+        // action-metod AddGradeController returnerar vidare till 
+        // action-metod Detail
+        public RedirectToActionResult AddGradeController(int id, string grade)
+        {
+            // ett betyg ska läggas till, behöver en mall
+            Grades localGrade = new Grades();
+
+            // generera id till Grades-klassen
+            localGrade.Id = Guid.NewGuid().ToString();
+
+            // lägg in produktid och betyg som kommer från webbsidan
+            localGrade.ProductId = id;
+            localGrade.Grade = Convert.ToInt32(grade);
+
+            // lägg till nytt betyg i databasen
+            accessGrades.AddGrades(localGrade);
+
+            // action-metod AddGradesController returnerar vidare till 
+            // actionmetod 'Detail' i Controller 'Product' med värdet id
+            return RedirectToAction("Detail", "Product", new { id = id });
         }
     }
 }

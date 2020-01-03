@@ -33,7 +33,5 @@ namespace C_Bageri30.Models
             return database.DbProduct.FirstOrDefault
                     (p => p.Id == inId);
         }
-
-
     }
 }

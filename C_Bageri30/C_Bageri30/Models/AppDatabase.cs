@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+//using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
 namespace C_Bageri30.Models
@@ -11,7 +11,7 @@ namespace C_Bageri30.Models
     // databas (Entity Framework)
     // DbContext är ett mellanlager som konverterar egen kod (C#) till 
     // databastabell och databastabell till egen kod (C#)
-    public class AppDatabase : IdentityDbContext<IdentityUser>
+    public class AppDatabase : DbContext
     {
         // constructor
         // måste finnas ett objekt av DbContextOptions

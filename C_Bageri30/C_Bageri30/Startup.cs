@@ -42,7 +42,7 @@ namespace C_Bageri30
                     ("DefaultConnection")));
 
             // funktion för identifiering
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDatabase>();
+            //services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDatabase>();
 
             // ska nås från alla ställen i applikationen
             // skapar ny instans för varje request, försvinner när 
@@ -99,10 +99,10 @@ namespace C_Bageri30
             app.UseRouting();
 
             // identifiering, inloggning
-            app.UseAuthentication();
+            //app.UseAuthentication();
 
             // håller koll på olika behörighetsnivåer/typer
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             // Om ingen slutstation har begärts visas hemsidan
             app.UseEndpoints(endpoints =>
@@ -113,7 +113,7 @@ namespace C_Bageri30
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 // endpoint för identifieringsfunktioner
-                endpoints.MapRazorPages();
+                //endpoints.MapRazorPages();
             });
 
             // info-medd för vanligt förekommande fel
