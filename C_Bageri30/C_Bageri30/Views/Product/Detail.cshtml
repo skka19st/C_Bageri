@@ -9,6 +9,8 @@
 -->
 @using Microsoft.AspNetCore.Identity
 
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @model ProductDetailViewModel
 
@@ -59,54 +61,56 @@
         {   if (SignInManager.IsSignedIn(User))     }
             <input name="Grade" type="number" min="1" max="5" class="form-control" />
         -->
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form asp-action="Checkout" method="post" class="form-horizontal" role="form">
+            <div asp-validation-summary="All" class="text-danger"></div>
 
-    <form asp-action="Checkout" method="post" class="form-horizontal" role="form">
-        <div asp-validation-summary="All" class="text-danger"></div>
+            <h3>Din synpunkt</h3>
 
-        <h3>Din synpunkt</h3>
-
-        <!-- möjlighet att lämna egen kommentar                  -->
-        <div class="form-group">
-            <div class="col-md-5">
-                <input name="Text" class="form-control" />
+            <!-- möjlighet att lämna egen kommentar                  -->
+            <div class="form-group">
+                <div class="col-md-5">
+                    <input name="Text" value="skriv din kommentar här" class="form-control" />
+                </div>
             </div>
-        </div>
 
-        <!-- submit av lämnad kommentar                               -->
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-5">
+            <!-- submit av lämnad kommentar                               -->
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-5">
 
-                <input type="submit" name="Text"
-                       asp-controller="Product" asp-action="AddCommentaryController"
-                       asp-route-id="@Model.ProductDetail.Id"
-                       asp-route-text="Text"
-                       class="btn btn-primary" value="Lämna kommentar" />
+                    <input type="submit" name="Text"
+                           asp-controller="Product" asp-action="AddCommentaryController"
+                           asp-route-id="@Model.ProductDetail.Id"
+                           asp-route-text="Text"
+                           class="btn btn-primary" value="Skicka kommentar" />
+                </div>
             </div>
-        </div>
 
-        <!-- möjlighet att lämna betyg 1-5                              -->
-        <div class="form-group">
-            <div class="col-md-5">
-                <select name="Grade">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
+            <!-- möjlighet att lämna betyg 1-5                              -->
+            <div class="form-group">
+                <div class="col-md-5">
+                    <select name="Grade">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <!-- submit av angiven betyg-siffra                               -->
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-5">
+            <!-- submit av angiven betyg-siffra                               -->
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-5">
 
-                <input type="submit" name="Grade"
-                       asp-controller="Product" asp-action="AddGradeController"
-                       asp-route-id="@Model.ProductDetail.Id"
-                       asp-route-text="Grade"
-                       class="btn btn-primary" value="Lägg till betyg  1-5" />
+                    <input type="submit" name="Grade"
+                           asp-controller="Product" asp-action="AddGradeController"
+                           asp-route-id="@Model.ProductDetail.Id"
+                           asp-route-text="Grade"
+                           class="btn btn-primary" value="Lägg till betyg  1-5" />
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    }
 </div>

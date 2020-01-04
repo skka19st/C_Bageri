@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using C_Bageri30.Models;
 using C_Bageri30.ViewModels;
 
@@ -20,7 +21,7 @@ namespace C_Bageri30.Controllers
 
      'return view' skickar data till vy med samma namn som metoden
           vyn ligger under mapp med samma namn som controllern som skickar data
-     'return ActionResult' ??? 
+     'return ActionResult' skickar vidare till angiven actionmetod
     */
 
     public class ProductController : Controller
@@ -114,26 +115,23 @@ namespace C_Bageri30.Controllers
                 localProductViewModel.GradeAverage = "inget betyg angivet";
             }
 
-            // ???
-            //List<int> test = new List<int>();
-            //test.Add(18);
-            //test.Add(20);
-            //test.Add(30);
-
-            //double svar = test.Average();
-            //double svarAvrundat = Math.Round(svar);
-            //string svarstring = svarAvrundat.ToString();
-
-
             // skickar data till vyn Detail
             return View(localProductViewModel);
-            //return ActionResult()
         }
 
         // action-metod AddCommentaryController returnerar vidare till 
         // action-metod Detail
+        // behöver vara inloggad för att komma åt denna controller
+        [Authorize]
         public RedirectToActionResult AddCommentaryController(int id, string text)
         {
+            // ingen blankrad i kommentar-tabellen
+            // fältets infotext ska inte heller sparas
+            if (text == "" || text == null || text == "skriv din kommentar här")
+            {
+                return RedirectToAction("Detail", "Product", new { id = id });
+            }
+
             // en kommentar ska läggas till, behöver en mall
             Commentary localCommentar = new Commentary();
 
@@ -154,6 +152,8 @@ namespace C_Bageri30.Controllers
 
         // action-metod AddGradeController returnerar vidare till 
         // action-metod Detail
+        // behöver vara inloggad för att komma åt denna controller
+        [Authorize]
         public RedirectToActionResult AddGradeController(int id, string grade)
         {
             // ett betyg ska läggas till, behöver en mall
