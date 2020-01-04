@@ -14,7 +14,7 @@ namespace C_Bageri30.Models
     public class Grades
     {
         public string Id { get; set; }
-        public int ProductId { get; set; }        
+        public int ProductId { get; set; }
         public int Grade { get; set; }               // betygskala: 1-5
     }
 }
