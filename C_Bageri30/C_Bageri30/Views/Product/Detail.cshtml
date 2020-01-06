@@ -1,7 +1,7 @@
 ﻿<!--
     html-kod för Detaljerad Produkt-sida
     anropas från action-metoden Detail i ProductController
-    skickas till vyn _SideBaseLayout, läggs in vid RenderBody()
+    skickas till vyn _Layout, läggs in vid RenderBody()
 
     "at-symbol"  anger början på C#-kod
     model anger vilken klass eller viewModel som beskriver innehållet
@@ -51,14 +51,14 @@
         inloggade användare kan lämna kommentar
     -->
     <!--
+        skapar formulär 
+            name = variabel som skickar data till controllern
+            asp-for = property den kopplas mot i classen 
+            asp-validation-for = visar felmeddelande för enskilt fält
+            asp-validation-summary = visar fel för hela formuläret
 
-        name = variabel som skickar data till controllern
-        asp-for = property den kopplas mot i classen alt
-        asp-validation-for = visar felmeddelande för enskilt fält
-        asp-validation-summary = visar fel för hela formuläret
-                    <input type="hidden" name="Id" value="att:Model.ProductDetail.Id" />
-                        <label asp-for="Text" class="col-md-2 control-label"></label>
-        {   if (SignInManager.IsSignedIn(User))     }
+        förslag på lösningar:
+            <input type="hidden" name="Id" value="att:Model.ProductDetail.Id" />
             <input name="Grade" type="number" min="1" max="5" class="form-control" />
         -->
     @if (SignInManager.IsSignedIn(User))
@@ -71,7 +71,8 @@
             <!-- möjlighet att lämna egen kommentar                  -->
             <div class="form-group">
                 <div class="col-md-5">
-                    <input name="Text" value="skriv din kommentar här" class="form-control" />
+                    <input name="Text" size="45" class="form-control"
+                           value="skriv din kommentar här"  />
                 </div>
             </div>
 

@@ -1,11 +1,8 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using C_Bageri30.Models;
-
-using System.Linq;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Mvc;
 
 
 namespace C_Bageri30_Test
