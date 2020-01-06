@@ -22,13 +22,13 @@ namespace C_Bageri30.Models
             database = appDbContext;
         }
 
-        // hämta alla kommentarer
+        // hämta alla betyg
         public IEnumerable<Grades> GetGradesAll()
         {
             return database.DbGrades;
         }
 
-        // hämta alla kommentarer för angiven produkt
+        // hämta alla betyg för angiven produkt
         public IEnumerable<Grades> GetGradesByProduct(int inProjektId)
         {
             return database.DbGrades.
@@ -36,7 +36,7 @@ namespace C_Bageri30.Models
             //Where(c => c.ProductId == inProjektId).ToList();
         }
 
-        // lägg till ny kommentar
+        // lägg till nytt betyg
         public void AddGrades(Grades inGrades)
         {
             database.DbGrades.Add(inGrades);

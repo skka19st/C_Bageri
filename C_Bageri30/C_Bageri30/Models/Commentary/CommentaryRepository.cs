@@ -41,7 +41,6 @@ namespace C_Bageri30.Models
         {
             database.DbCommentary.Add(inCommentary);
             database.SaveChanges();
-
         }
     }
 }

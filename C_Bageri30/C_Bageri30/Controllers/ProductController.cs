@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using C_Bageri30.Models;
 using C_Bageri30.ViewModels;
 
@@ -12,15 +13,18 @@ namespace C_Bageri30.Controllers
 
     /* 
     IActionResult är en superklass, med underliggande klasser ViewResult och RedirectToAction
+            avslutas med 'return ActionResult'
 
-     metoden 'ViewResult List' samlar ihop och skickar data till view 
-     metoden 'RedirectToActionResult("Index", "Home", new { id="1", Text="kommentar" })' 
-          "Index" = actionmetod, "Home" = Controller(default är nuvarande), 
-          "new...." = variabler som skickas med till anropad funktion/metod
+     metoden 'ViewResult' samlar ihop och skickar data till view med samma namn
+            avslutas med 'return view'
+            metoden ligger i en mapp med samma namn som controllern
 
-     'return view' skickar data till vy med samma namn som metoden
-          vyn ligger under mapp med samma namn som controllern som skickar data
-     'return ActionResult' ??? 
+     metoden 'RedirectToActionResult'  
+            bearbetar data och skickar sedan vidare till annan metod
+            avslutas med 'return RedirectToAction(a,b,c)'
+                "a" = actionmetod, "b" = Controller(default är nuvarande), 
+                "c" = variabler som skickas med till anropad funktion/metod
+                    tex 'new { id="1", Text="kommentar" })' 
     */
 
     public class ProductController : Controller
@@ -42,7 +46,7 @@ namespace C_Bageri30.Controllers
             accessGrades = inAccessGrades;
         }
 
-        // action-metod List returnerar till view List
+        // action-metod List returnerar till view Product/List
         public ViewResult List()
         {
             // skickar med fliknamnet till webben
@@ -61,25 +65,22 @@ namespace C_Bageri30.Controllers
             return View(ProduktLista);
         }
 
-        // action-metod Detail returnerar till view Detail
+        // action-metod Detail returnerar till view Product/Detail
+        // information som ska till webbsidan:
+        // info om vald produkt + produktens samtliga kommentarer
+        // även betygsgenomsnitt ska beräknas och skickas med
         public ViewResult Detail(int id)  
         {
-
             // skickar med fliknamnet till webben
             ViewBag.Title = "Product Detail 3.0";
 
             // rubrik till webbsidan
             ViewBag.Rubrik = "Produktdetalj";
 
-            // information som ska till webbsidan:
-            // info om vald produkt + produktens samtliga kommentarer
-            // även betygsgenomsnitt ska beräknas och skickas med
-
             // en <List> måste initieras (med new) innan den kan användas
             // även om den ska tilldelas värde med direkt
             ProductDetailViewModel localProductViewModel = new ProductDetailViewModel();
             localProductViewModel.CommentaryList = new List<Commentary>();
-
 
             // hämta önskad produkt
             Product produkt = accessProdukt.GetProductById(id);
@@ -114,26 +115,23 @@ namespace C_Bageri30.Controllers
                 localProductViewModel.GradeAverage = "inget betyg angivet";
             }
 
-            // ???
-            //List<int> test = new List<int>();
-            //test.Add(18);
-            //test.Add(20);
-            //test.Add(30);
-
-            //double svar = test.Average();
-            //double svarAvrundat = Math.Round(svar);
-            //string svarstring = svarAvrundat.ToString();
-
-
             // skickar data till vyn Detail
             return View(localProductViewModel);
-            //return ActionResult()
         }
 
         // action-metod AddCommentaryController returnerar vidare till 
         // action-metod Detail
+        // behöver vara inloggad för att komma åt denna actionmetod
+        [Authorize]
         public RedirectToActionResult AddCommentaryController(int id, string text)
         {
+            // ingen blankrad i kommentar-tabellen
+            // fältets infotext ska inte heller sparas
+            if (text == "" || text == null || text == "skriv din kommentar här")
+            {
+                return RedirectToAction("Detail", "Product", new { id = id });
+            }
+
             // en kommentar ska läggas till, behöver en mall
             Commentary localCommentar = new Commentary();
 
@@ -154,6 +152,8 @@ namespace C_Bageri30.Controllers
 
         // action-metod AddGradeController returnerar vidare till 
         // action-metod Detail
+        // behöver vara inloggad för att komma åt denna controller
+        [Authorize]
         public RedirectToActionResult AddGradeController(int id, string grade)
         {
             // ett betyg ska läggas till, behöver en mall

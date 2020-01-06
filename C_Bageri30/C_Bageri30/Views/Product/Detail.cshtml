@@ -1,7 +1,7 @@
 ﻿<!--
     html-kod för Detaljerad Produkt-sida
     anropas från action-metoden Detail i ProductController
-    skickas till vyn _SideBaseLayout, läggs in vid RenderBody()
+    skickas till vyn _Layout, läggs in vid RenderBody()
 
     "at-symbol"  anger början på C#-kod
     model anger vilken klass eller viewModel som beskriver innehållet
@@ -9,6 +9,8 @@
 -->
 @using Microsoft.AspNetCore.Identity
 
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @model ProductDetailViewModel
 
@@ -34,7 +36,8 @@
         ev kommentarer visas
     -->
     <h2>Så tycker våra kunder</h2>
-    <h3>Genomsnittligt omdöme: @Model.GradeAverage</h3>
+    <h3>Genomsnittligt omdöme:</h3>
+    <h3>@Model.GradeAverage</h3>
 
     @if (Model.CommentaryList.Count > 0)
     {
@@ -48,57 +51,67 @@
         inloggade användare kan lämna kommentar
     -->
     <!--
+        skapar formulär 
+            name = variabel som skickar data till controllern
+            asp-for = property den kopplas mot i classen 
+            asp-validation-for = visar felmeddelande för enskilt fält
+            asp-validation-summary = visar fel för hela formuläret
 
-        name = variabel som skickar data till controllern
-        asp-for = property den kopplas mot i classen alt
-        asp-validation-for = visar felmeddelande för enskilt fält
-        asp-validation-summary = visar fel för hela formuläret
-                    <input type="hidden" name="Id" value="att:Model.ProductDetail.Id" />
-                        <label asp-for="Text" class="col-md-2 control-label"></label>
-        {   if (SignInManager.IsSignedIn(User))     }
+        förslag på lösningar:
+            <input type="hidden" name="Id" value="att:Model.ProductDetail.Id" />
+            <input name="Grade" type="number" min="1" max="5" class="form-control" />
         -->
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form asp-action="Checkout" method="post" class="form-horizontal" role="form">
+            <div asp-validation-summary="All" class="text-danger"></div>
 
-    <form asp-action="Checkout" method="post" class="form-horizontal" role="form">
-        <div asp-validation-summary="All" class="text-danger"></div>
+            <h3>Din synpunkt</h3>
 
-        <h3>Din synpunkt</h3>
-
-        <!-- möjlighet att lämna egen kommentar                  -->
-        <div class="form-group">
-            <div class="col-md-5">
-                <input name="Text" class="form-control" />
+            <!-- möjlighet att lämna egen kommentar                  -->
+            <div class="form-group">
+                <div class="col-md-5">
+                    <input name="Text" size="45" class="form-control"
+                           value="skriv din kommentar här"  />
+                </div>
             </div>
-        </div>
 
-        <!-- submit av lämnad kommentar                               -->
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-5">
+            <!-- submit av lämnad kommentar                               -->
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-5">
 
-                <input type="submit" name="Text"
-                       asp-controller="Product" asp-action="AddCommentaryController"
-                       asp-route-id="@Model.ProductDetail.Id"
-                       asp-route-text="Text"
-                       class="btn btn-primary" value="Lämna kommentar" />
+                    <input type="submit" name="Text"
+                           asp-controller="Product" asp-action="AddCommentaryController"
+                           asp-route-id="@Model.ProductDetail.Id"
+                           asp-route-text="Text"
+                           class="btn btn-primary" value="Skicka kommentar" />
+                </div>
             </div>
-        </div>
 
-        <!-- möjlighet att lämna betyg 1-5                              -->
-        <div class="form-group">
-            <div class="col-md-5">
-                <input name="Grade" class="form-control" />
+            <!-- möjlighet att lämna betyg 1-5                              -->
+            <div class="form-group">
+                <div class="col-md-5">
+                    <select name="Grade">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <!-- submit av angiven betyg-siffra                               -->
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-5">
+            <!-- submit av angiven betyg-siffra                               -->
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-5">
 
-                <input type="submit" name="Grade"
-                       asp-controller="Product" asp-action="AddGradeController"
-                       asp-route-id="@Model.ProductDetail.Id"
-                       asp-route-text="Grade"
-                       class="btn btn-primary" value="Lägg till betyg" />
+                    <input type="submit" name="Grade"
+                           asp-controller="Product" asp-action="AddGradeController"
+                           asp-route-id="@Model.ProductDetail.Id"
+                           asp-route-text="Grade"
+                           class="btn btn-primary" value="Lägg till betyg  1-5" />
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    }
 </div>
